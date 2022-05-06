@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -156,6 +156,14 @@ class UpdateClientRequest extends Request
         foreach ($settings as $key => $value) {
             if (! array_key_exists($key, $saveable_casts)) {
                 unset($settings->{$key});
+            }
+
+            //26-04-2022 - In case settings are returned as array instead of object
+            if($key == 'default_task_rate' && is_array($settings)){
+                $settings['default_task_rate'] = floatval($value);
+            }
+            elseif($key == 'default_task_rate' && is_object($settings)) {
+                $settings->default_task_rate = floatval($value);
             }
         }
 

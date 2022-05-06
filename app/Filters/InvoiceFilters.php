@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -136,6 +136,18 @@ class InvoiceFilters extends QueryFilters
                 $query->orWhere($table.'.is_deleted', '=', 1);
             }
         });
+    }
+
+    public function payable(string $client_id)
+    {
+        if (strlen($client_id) == 0) {
+            return $this->builder;
+        }
+
+        return $this->builder->whereIn('status_id', [Invoice::STATUS_DRAFT, Invoice::STATUS_SENT, Invoice::STATUS_PARTIAL])
+                             ->where('balance', '>', 0)
+                             ->where('is_deleted', 0)
+                             ->where('client_id', $this->decodePrimaryKey($client_id));
     }
 
     /**

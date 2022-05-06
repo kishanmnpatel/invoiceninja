@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -168,7 +168,7 @@ abstract class QueryFilters
 
     public function created_at($value)
     {
-        $created_at = $value ? $value : 0;
+        $created_at = $value ? (int)$value : 0;
 
         $created_at = date('Y-m-d H:i:s', $value);
 

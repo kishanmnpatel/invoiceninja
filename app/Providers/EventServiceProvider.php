@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -213,6 +213,7 @@ use App\Models\Expense;
 use App\Models\Invoice;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Project;
 use App\Models\Proposal;
 use App\Models\Quote;
 use App\Models\Subscription;
@@ -228,6 +229,7 @@ use App\Observers\ExpenseObserver;
 use App\Observers\InvoiceObserver;
 use App\Observers\PaymentObserver;
 use App\Observers\ProductObserver;
+use App\Observers\ProjectObserver;
 use App\Observers\ProposalObserver;
 use App\Observers\QuoteObserver;
 use App\Observers\SubscriptionObserver;
@@ -586,6 +588,7 @@ class EventServiceProvider extends ServiceProvider
         Invoice::observe(InvoiceObserver::class);
         Payment::observe(PaymentObserver::class);
         Product::observe(ProductObserver::class);
+        Project::observe(ProjectObserver::class);
         Proposal::observe(ProposalObserver::class);
         Quote::observe(QuoteObserver::class);
         Task::observe(TaskObserver::class);

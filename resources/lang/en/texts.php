@@ -888,7 +888,7 @@ $LANG = array(
     'custom_invoice_charges_helps' => 'Add a field when creating an invoice and include the charge in the invoice subtotals.',
     'token_expired' => 'Validation token was expired. Please try again.',
     'invoice_link' => 'Invoice Link',
-    'button_confirmation_message' => 'Click to confirm your email.',
+    'button_confirmation_message' => 'Confirm your email.',
     'confirm' => 'Confirm',
     'email_preferences' => 'Email Preferences',
     'created_invoices' => 'Successfully created :count invoice(s)',
@@ -4562,6 +4562,19 @@ $LANG = array(
     'approved_quotes' => 'Successfully :value approved quotes',
     'client_website' => 'Client Website',
     'invalid_time' => 'Invalid Time',
+    'signed_in_as' => 'Signed in as',
+    'total_results' => 'Total results',
+    'restore_company_gateway' => 'Restore payment gateway',
+    'archive_company_gateway' => 'Archive payment gateway',
+    'delete_company_gateway' => 'Delete payment gateway',
+    'exchange_currency' => 'Exchange currency',
+    'tax_amount1' => 'Tax Amount 1',
+    'tax_amount2' => 'Tax Amount 2',
+    'tax_amount3' => 'Tax Amount 3',
+    'update_project' => 'Update Project',
+    'auto_archive_invoice_cancelled' => 'Auto Archive Cancelled Invoice',
+    'auto_archive_invoice_cancelled_help' => 'Automatically archive invoices when they are cancelled',
+    
 );
 
 return $LANG;

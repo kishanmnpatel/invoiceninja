@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -48,6 +48,16 @@ class RecurringInvoiceToInvoiceFactory
         $invoice->custom_value4 = $recurring_invoice->custom_value4;
         $invoice->amount = $recurring_invoice->amount;
         $invoice->uses_inclusive_taxes = $recurring_invoice->uses_inclusive_taxes;
+
+        $invoice->custom_surcharge1 = $recurring_invoice->custom_surcharge1;
+        $invoice->custom_surcharge2 = $recurring_invoice->custom_surcharge2;
+        $invoice->custom_surcharge3 = $recurring_invoice->custom_surcharge3;
+        $invoice->custom_surcharge4 = $recurring_invoice->custom_surcharge4;
+        $invoice->custom_surcharge_tax1 = $recurring_invoice->custom_surcharge_tax1;
+        $invoice->custom_surcharge_tax2 = $recurring_invoice->custom_surcharge_tax2;
+        $invoice->custom_surcharge_tax3 = $recurring_invoice->custom_surcharge_tax3;
+        $invoice->custom_surcharge_tax4 = $recurring_invoice->custom_surcharge_tax4;
+
         // $invoice->balance = $recurring_invoice->balance;
         $invoice->user_id = $recurring_invoice->user_id;
         $invoice->assigned_user_id = $recurring_invoice->assigned_user_id;

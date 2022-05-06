@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -32,7 +32,7 @@ trait UserNotifies
         $notifiable_methods = [];
         $notifications = $company_user->notifications;
 
-        if ($company_user->company->is_disabled && is_array($notifications->email) || $company_user->trashed() || $company_user->user->trashed()) {
+        if ($invitation->company->is_disabled && is_array($notifications->email) || $company_user->trashed() || $company_user->user->trashed()) {
             return [];
         }
         
@@ -56,7 +56,7 @@ trait UserNotifies
         $notifiable_methods = [];
         $notifications = $company_user->notifications;
 
-        if ($company_user->company->is_disabled || ! $notifications || $company_user->trashed() || $company_user->user->trashed()) {
+        if ($entity->company->is_disabled || ! $notifications || $company_user->trashed() || $company_user->user->trashed()) {
             return [];
         }
 

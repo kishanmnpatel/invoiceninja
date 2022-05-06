@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -186,7 +186,7 @@ class PaymentRepository extends BaseRepository {
 
         TransactionLog::dispatch(TransactionEvent::PAYMENT_MADE, $transaction, $payment->company->db);
 
-        return $payment->fresh();
+        return $payment->refresh();
     }
 
     /**

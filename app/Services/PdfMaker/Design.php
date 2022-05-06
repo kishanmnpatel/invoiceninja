@@ -5,7 +5,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -225,10 +225,13 @@ class Design extends BaseDesign
     public function entityDetails(): array
     {
         if ($this->type === 'statement') {
+
+            $s_date = $this->translateDate($this->options['end_date'], $this->client->date_format(), $this->client->locale());
+            
             return [
                 ['element' => 'tr', 'properties' => [], 'elements' => [
                     ['element' => 'th', 'properties' => [], 'content' => ctrans('texts.statement_date')],
-                    ['element' => 'th', 'properties' => [], 'content' => $this->options['end_date'] ?? ''],
+                    ['element' => 'th', 'properties' => [], 'content' => $s_date ?? ''],
                 ]],
                 ['element' => 'tr', 'properties' => [], 'elements' => [
                     ['element' => 'th', 'properties' => [], 'content' => '$balance_due_label'],

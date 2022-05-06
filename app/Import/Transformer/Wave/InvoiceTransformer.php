@@ -4,7 +4,7 @@
  *
  * @link https://github.com/clientninja/clientninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://clientninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://clientninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -83,11 +83,17 @@ class InvoiceTransformer extends BaseTransformer {
 			}
 			else {
 				//could be a generate invoices.csv file
+
+				$calculated_tax_rate = 0;
+				
+				if($this->getFloat( $record, 'Invoice Tax Total' ) != 0 && $this->getFloat( $record, 'Invoice Total' ) != 0)
+					$calculated_tax_rate = round($this->getFloat( $record, 'Invoice Tax Total' ) / $this->getFloat( $record, 'Invoice Total' ) * 100,2);
+
 				$line_items[] = [
 					'notes'     => 'Imported Invoice',
 					'cost'      => $this->getFloat( $record, 'Invoice Total' ),
 					'tax_name1' => 'Tax',
-					'tax_rate1' => round($this->getFloat( $record, 'Invoice Tax Total' ) / $this->getFloat( $record, 'Invoice Total' ) * 100,2),
+					'tax_rate1' => $calculated_tax_rate,
 					'quantity' => 1,
 				];
 

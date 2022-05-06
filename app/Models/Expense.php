@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -106,4 +106,24 @@ class Expense extends BaseModel
     {
         return ctrans('texts.expense');
     }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(ExpenseCategory::class);
+    }
+
+    public function payment_type()
+    {
+        return $this->belongsTo(PaymentType::class);
+    }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }    
 }

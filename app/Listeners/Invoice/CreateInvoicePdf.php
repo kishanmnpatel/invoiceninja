@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -39,21 +39,21 @@ class CreateInvoicePdf implements ShouldQueue
         if(isset($event->invoice))
         {
             $event->invoice->invitations->each(function ($invitation) {
-                CreateEntityPdf::dispatch($invitation);
+                CreateEntityPdf::dispatch($invitation->load("invoice", "contact.client.company"));
             });
         }
 
         if(isset($event->quote))
         {
             $event->quote->invitations->each(function ($invitation) {
-                CreateEntityPdf::dispatch($invitation);
+                CreateEntityPdf::dispatch($invitation->load("quote", "contact.client.company"));
             });
         }
 
         if(isset($event->credit))
         {
             $event->credit->invitations->each(function ($invitation) {
-                CreateEntityPdf::dispatch($invitation);
+                CreateEntityPdf::dispatch($invitation->load("credit", "contact.client.company"));
             });
         }
 

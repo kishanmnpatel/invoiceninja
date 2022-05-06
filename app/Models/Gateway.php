@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -63,8 +63,6 @@ class Gateway extends StaticModel
             $link = 'https://applications.sagepay.com/apply/2C02C252-0F8A-1B84-E10D-CF933EFCAA99';
         } elseif ($this->id == 20 || $this->id == 56) {
             $link = 'https://dashboard.stripe.com/account/apikeys';
-        } elseif ($this->id == 59) {
-            $link = 'https://www.forte.net/';
         }
 
         return $link;
@@ -161,7 +159,7 @@ class Gateway extends StaticModel
                 break;
             case 52:
                 return [
-                    GatewayType::BANK_TRANSFER => ['refund' => true, 'token_billing' => true, 'webhooks' => [' ']], // GoCardless
+                    GatewayType::BANK_TRANSFER => ['refund' => false, 'token_billing' => true, 'webhooks' => [' ']], // GoCardless
                     GatewayType::DIRECT_DEBIT => ['refund' => false, 'token_billing' => true, 'webhooks' => [' ']],
                     GatewayType::SEPA => ['refund' => false, 'token_billing' => true, 'webhooks' => [' ']],
                     GatewayType::INSTANT_BANK_PAY => ['refund' => false, 'token_billing' => true, 'webhooks' => [' ']],
@@ -170,12 +168,6 @@ class Gateway extends StaticModel
             case 58:
                 return [
                     GatewayType::HOSTED_PAGE => ['refund' => false, 'token_billing' => false, 'webhooks' => [' ']] // Razorpay
-                ];
-                break;
-            case 59:
-                return [
-                    GatewayType::CREDIT_CARD => ['refund' => true, 'token_billing' => true], // Forte
-                    GatewayType::BANK_TRANSFER => ['refund' => true, 'token_billing' => true, 'webhooks' => [' ']],
                 ];
                 break;
             default:

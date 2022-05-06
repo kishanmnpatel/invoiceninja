@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -107,6 +107,8 @@ class ClientController extends BaseController
      */
     public function index(ClientFilters $filters)
     {
+        set_time_limit(45);
+
         $clients = Client::filter($filters);
 
         return $this->listResponse($clients);
@@ -596,7 +598,7 @@ class ClientController extends BaseController
      *
      *
      *
-     * @OA\Put(
+     * @OA\Post(
      *      path="/api/v1/clients/{id}/purge",
      *      operationId="purgeClient",
      *      tags={"clients"},

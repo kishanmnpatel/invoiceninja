@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -35,6 +35,15 @@ class ClientSettings extends BaseSettings
     public static $casts = [
         'industry_id' => 'string',
         'size_id' => 'string',
+    ];
+
+    public static $property_casts = [
+        'language_id' => 'string',
+        'currency_id' => 'string',
+        'payment_terms' => 'string',
+        'valid_until' => 'string',
+        'default_task_rate' => 'float',
+        'send_reminders' => 'bool',
     ];
 
     /**

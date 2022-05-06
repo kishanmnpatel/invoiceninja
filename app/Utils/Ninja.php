@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -48,7 +48,8 @@ class Ninja
             'White Label: '.'\\n'. // TODO: Implement white label with hasFeature.
             'Server OS: '.php_uname('s').' '.php_uname('r').'\\n'.
             'PHP Version: '.phpversion().'\\n'.
-            'MySQL Version: '.$mysql_version;
+            'MySQL Version: '.$mysql_version.'\\n'.
+            'Version: '. request()->has('version') ? request()->input('version') : 'No Version Supplied.';
 
         return $info;
     }

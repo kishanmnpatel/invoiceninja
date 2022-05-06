@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -479,7 +479,6 @@ class Company extends BaseModel
     public function owner()
     {
         return $this->company_users()->withTrashed()->where('is_owner', true)->first()->user;
-        //return $this->company_users->where('is_owner', true)->first()->user;
     }
 
     public function resolveRouteBinding($value, $field = null)

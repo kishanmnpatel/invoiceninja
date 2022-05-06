@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -116,7 +116,7 @@ class Csv extends BaseImport implements ImportInterface
 
         $this->transformer = new ProductTransformer($this->company);
 
-        $product_count = $this->ingest($data, $entity_type);
+        $product_count = $this->ingestProducts($data, $entity_type);
 
         $this->entity_count['products'] = $product_count;
     }

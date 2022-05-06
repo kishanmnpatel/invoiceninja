@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -221,7 +221,7 @@ class QuoteService
 
     public function triggeredActions($request)
     {
-        $this->quote = (new TriggeredActions($this->quote, $request))->run();
+        $this->quote = (new TriggeredActions($this->quote->load('invitations'), $request))->run();
 
         return $this;
     }

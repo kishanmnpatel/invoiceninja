@@ -5,7 +5,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -31,6 +31,8 @@ class PayPalExpressPaymentDriver extends BaseDriver
     public $can_authorise_credit_card = false;
 
     private $omnipay_gateway;
+
+    private float $fee = 0;
 
     const SYSTEM_LOG_TYPE = SystemLog::TYPE_PAYPAL;
 
@@ -173,11 +175,17 @@ class PayPalExpressPaymentDriver extends BaseDriver
 
     public function generatePaymentDetails(array $data)
     {
+
+        $_invoice = collect($this->payment_hash->data->invoices)->first();
+        $invoice = Invoice::withTrashed()->find($this->decodePrimaryKey($_invoice->invoice_id));
+
+        $this->fee = $this->feeCalc($invoice, $data['total']['amount_with_fee']);
+
         return [
             'currency' => $this->client->getCurrencyCode(),
             'transactionType' => 'Purchase',
             'clientIp' => request()->getClientIp(),
-            'amount' => $data['total']['amount_with_fee'],
+            'amount' => round(($data['total']['amount_with_fee'] + $this->fee),2),
             'returnUrl' => route('client.payments.response', [
                 'company_gateway_id' => $this->company_gateway->id,
                 'payment_hash' => $this->payment_hash->hash,
@@ -200,8 +208,6 @@ class PayPalExpressPaymentDriver extends BaseDriver
         $_invoice = collect($this->payment_hash->data->invoices)->first();
         $invoice = Invoice::withTrashed()->find($this->decodePrimaryKey($_invoice->invoice_id));
 
-        $line_item = collect($invoice->line_items)->first();
-
         $items = [];
 
         $items[] = new Item([
@@ -211,8 +217,44 @@ class PayPalExpressPaymentDriver extends BaseDriver
                 'quantity' => 1,
             ]);
 
+
+        if($this->fee > 0.1){
+
+            $items[] = new Item([
+                'name' => " ",
+                'description' => ctrans('texts.gateway_fee_description'),
+                'price' => $this->fee,
+                'quantity' => 1,
+            ]);
+
+
+        }
+
         return $items;
 
+    }
+
+    private function feeCalc($invoice, $invoice_total)
+    {
+
+        $invoice->service()->removeUnpaidGatewayFees();
+        $invoice = $invoice->fresh();
+        
+        $balance = floatval($invoice->balance);
+
+        $_updated_invoice = $invoice->service()->addGatewayFee($this->company_gateway, GatewayType::PAYPAL, $invoice_total)->save();
+
+        if(floatval($_updated_invoice->balance) > $balance){
+
+            $fee = floatval($_updated_invoice->balance) - $balance;
+
+            $this->payment_hash->fee_total = $fee;
+            $this->payment_hash->save();
+
+            return $fee;
+        }
+
+        return 0;
     }
 
 }

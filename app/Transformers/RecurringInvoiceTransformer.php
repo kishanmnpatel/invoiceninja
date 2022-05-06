@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -13,11 +13,13 @@ namespace App\Transformers;
 
 use App\Models\Activity;
 use App\Models\Backup;
+use App\Models\Client;
 use App\Models\Document;
 use App\Models\Invoice;
 use App\Models\RecurringInvoice;
 use App\Models\RecurringInvoiceInvitation;
 use App\Transformers\ActivityTransformer;
+use App\Transformers\ClientTransformer;
 use App\Transformers\InvoiceHistoryTransformer;
 use App\Utils\Traits\MakesHash;
 
@@ -32,6 +34,7 @@ class RecurringInvoiceTransformer extends EntityTransformer
 
     protected $availableIncludes = [
         'activities',
+        'client',
     ];
    
     public function includeHistory(RecurringInvoice $invoice)
@@ -62,6 +65,13 @@ class RecurringInvoiceTransformer extends EntityTransformer
         return $this->includeCollection($invoice->documents, $transformer, Document::class);
     }
     
+    public function includeClient(RecurringInvoice $invoice)
+    {
+        $transformer = new ClientTransformer($this->serializer);
+
+        return $this->includeItem($invoice->client, $transformer, Client::class);
+    }
+
     public function transform(RecurringInvoice $invoice)
     {
         

@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -97,6 +97,7 @@ class PreviewController extends BaseController
             ! empty(request()->input('entity')) &&
             ! empty(request()->input('entity_id')) &&
             request()->has('body')) {
+            
             $design_object = json_decode(json_encode(request()->input('design')));
 
             if (! is_object($design_object)) {

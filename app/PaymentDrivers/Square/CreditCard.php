@@ -5,7 +5,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -105,7 +105,7 @@ class CreditCard implements MethodInterface
         $amount_money->setAmount($amount);
         $amount_money->setCurrency($this->square_driver->client->currency()->code);
 
-        $body = new \Square\Models\CreatePaymentRequest($token, Str::random(32), $amount_money);
+        $body = new \Square\Models\CreatePaymentRequest($token, $request->idempotencyKey, $amount_money);
 
         $body->setAutocomplete(true);
         $body->setLocationId($this->square_driver->company_gateway->getConfigField('locationId'));

@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://opensource.org/licenses/AAL
  */
@@ -233,6 +233,9 @@ class GoCardlessPaymentDriver extends BaseDriver
         sleep(2);
 
         $this->init();
+
+        nlog("GoCardless Event");
+        nlog($request->all());
 
 
         if(!is_array($request->events) || !is_object($request->events)){

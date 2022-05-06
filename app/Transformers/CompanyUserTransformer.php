@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -79,7 +79,7 @@ class CompanyUserTransformer extends EntityTransformer
 
     public function includeToken(CompanyUser $company_user)
     {
-        $token = $company_user->tokens->where('company_id', $company_user->company_id)->where('user_id', $company_user->user_id)->first();
+        $token = $company_user->tokens()->where('company_id', $company_user->company_id)->where('user_id', $company_user->user_id)->first();
 
         $transformer = new CompanyTokenTransformer($this->serializer);
 

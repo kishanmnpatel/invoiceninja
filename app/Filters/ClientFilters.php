@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -57,10 +57,13 @@ class ClientFilters extends QueryFilters
     {
         $parts = explode(':', $balance);
 
+        if(!is_array($parts))
+            return $this->builder;
+
         return $this->builder->whereBetween('balance', [$parts[0], $parts[1]]);
     }
 
-    public function email(string $email):Builder
+    public function email(string $email = ''):Builder
     {
         return
 

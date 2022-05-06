@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -57,16 +57,21 @@ class MarkSent extends AbstractService
              ->service()
              ->applyNumber()
              ->setDueDate()
-             // ->deletePdf() //08-01-2022
-             ->touchPdf() //08-01-2022
+             ->touchPdf()
              ->setReminder()
              ->save();
 
         /*Adjust client balance*/
-        $this->client->fresh();
-        $this->client->balance += $adjustment;
-        $this->client->save();
+        
 
+        \DB::connection(config('database.default'))->transaction(function () use($adjustment){
+
+        /* Get the last record for the client and set the current balance*/
+            $client = Client::withTrashed()->where('id', $this->client->id)->lockForUpdate()->first();
+            $client->balance += $adjustment;
+            $client->save();
+
+        }, 1);
 
         $this->invoice->markInvitationsSent();
 

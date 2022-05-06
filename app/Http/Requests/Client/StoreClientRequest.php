@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -37,6 +37,7 @@ class StoreClientRequest extends Request
 
     public function rules()
     {
+        
         if ($this->input('documents') && is_array($this->input('documents'))) {
             $documents = count($this->input('documents'));
 
@@ -95,6 +96,10 @@ class StoreClientRequest extends Request
 
         if (array_key_exists('settings', $input) && ! empty($input['settings'])) {
             foreach ($input['settings'] as $key => $value) {
+
+                if($key == 'default_task_rate')
+                    $value = floatval($value);
+                
                 $settings->{$key} = $value;
             }
         }

@@ -4,7 +4,7 @@
  *
  * @link https://github.com/invoiceninja/invoiceninja source repository
  *
- * @copyright Copyright (c) 2021. Invoice Ninja LLC (https://invoiceninja.com)
+ * @copyright Copyright (c) 2022. Invoice Ninja LLC (https://invoiceninja.com)
  *
  * @license https://www.elastic.co/licensing/elastic-license
  */
@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Model;
 use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
@@ -68,6 +69,10 @@ class AppServiceProvider extends ServiceProvider
         });
  
         app()->instance(TruthSource::class, new TruthSource());
+
+        // Model::preventLazyLoading(
+        //     !$this->app->isProduction()
+        // );
 
     }
 
